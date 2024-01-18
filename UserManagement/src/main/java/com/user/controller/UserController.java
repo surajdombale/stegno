@@ -2,6 +2,7 @@ package com.user.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.user.entitites.User;
 import com.user.services.UserService;
-import com.user.util.Mail;
 
 @RestController
 @RequestMapping("/user")
@@ -53,18 +53,35 @@ public class UserController {
 	// http://localhost:8080/user/enable
 	@PostMapping("/enable")
 	public String enableUser(@RequestParam("username") String username) {
-		return userService.enable(username);
+		return userService.enableUser(username);
 
 	}
 
-	// http://localhost:8080/user/sendmail
-	@PostMapping("/sendmail")
-	public Boolean sendMail(@RequestParam("to") String to, @RequestParam("msg") String msg,
-			@RequestParam("subject") String subject) {
-		return Mail.sendEmail(to, msg, subject);
+	// http://localhost:8080/user/enableimage
+	@PostMapping("/banimage")
+	public boolean banImage(@RequestParam("id") Integer id) {
+		return userService.banSpamImage(id);
 
 	}
 
-	
+	// http://localhost:8080/user/delete
+	@PostMapping("/delete")
+	public boolean deleteUser(@RequestParam("username") String username) {
+		return userService.deleteUser(username);
+
+	}
+
+	// http://localhost:8080/user/spamuser
+	@PostMapping("/spamuser")
+	public Map<String, Long> spamUser() {
+		return userService.spamUser();
+	}
+
+	// http://localhost:8080/user/deleteimage
+	@PostMapping("/deleteimage")
+	public boolean deleteImage(@RequestParam("id") Integer id) {
+		return userService.deleteSpamImage(id);
+
+	}
 
 }

@@ -1,12 +1,8 @@
 package com.user.model;
 
-
-
-
 public class TokenResponse {
 	private String token;
 	private String userName;
-	
 
 	public String getToken() {
 		return token;

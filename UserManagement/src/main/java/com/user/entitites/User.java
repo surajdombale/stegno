@@ -1,16 +1,18 @@
 package com.user.entitites;
 
-import java.util.Collection;
+import java.util.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "UserData")
 public class User implements UserDetails {
+
+	private static final long serialVersionUID = 1L;
 
 	public boolean isSubs() {
 		return subs;
@@ -44,11 +46,9 @@ public class User implements UserDetails {
 	private String pin;
 	private String role;
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 
 	public String getEmail() {
 		return email;
@@ -77,15 +77,21 @@ public class User implements UserDetails {
 		this.userId = userId;
 	}
 
-	
-
 	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+		if (getRole().contains("ADMIN")) {
+			authorities.add(new SimpleGrantedAuthority("ADMIN"));
+			authorities.add(new SimpleGrantedAuthority("USER"));
+		} else {
+			authorities.add(new SimpleGrantedAuthority("USER"));
+		}
+		return authorities;
+
 	}
 
 	@Override

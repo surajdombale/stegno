@@ -1,6 +1,7 @@
 package com.user.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -37,15 +38,16 @@ public class ImageSrvImpl implements ImageSrv {
 
 		// First retrive the image id from image
 		ImageData imgData = imgRepo.findById(id).get();
+		if (imgData.isBan() || !imgData.isEnable()) {
+			return "!!! Image is Banned !!!";
+		}
 
 		User user = userRepo.findByEmail(imgData.getUsername()).get();
 		String key = user.getPin();
-		if (key == null) {
+		if (key == null || !user.isEnabled()) {
 			return "!!! Data Not Found !!!";
 		}
-		if (!user.isEnabled()) {
-			return "!!! Data Not Found !!!";
-		}
+
 		userEntryRepo.save(new UserEntry(username, id, LocalDateTime.now()));
 
 		return Encryptor.decrypt(imgData.getImgText(), key);
@@ -55,7 +57,9 @@ public class ImageSrvImpl implements ImageSrv {
 	public ResponseEntity<byte[]> addText(MultipartFile imageFile, String text, String username) throws Exception {
 		// Encrypt text and store it in user database using userId and add return image
 		// id in image
-		ImageData imgData = imgRepo.save(new ImageData(Encryptor.encrypt(text, userRepo.findByEmail(username).get().getPin()), username,true));
+		ImageData imgData = imgRepo
+				.save(new ImageData(Encryptor.encrypt(text, userRepo.findByEmail(username).get().getPin()), username,
+						true, LocalDateTime.now(), false));
 		// Set appropriate headers for the response
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.IMAGE_PNG);
@@ -64,10 +68,26 @@ public class ImageSrvImpl implements ImageSrv {
 
 	@Override
 	public boolean enableImage(Integer id) {
-		ImageData img=imgRepo.findById(id).get();
+		ImageData img = imgRepo.findById(id).get();
 		img.setEnable(!img.isEnable());
 		imgRepo.save(img);
 		return !img.isEnable();
+	}
+
+	@Override
+	public boolean addCheck(String username) {
+		LocalDateTime oneWeekAgo = LocalDateTime.now().minusDays(7);
+		List<ImageData> imgData = imgRepo.findByUsernameAndTimeAfter(username, oneWeekAgo);
+
+		return imgData.size() >= 6;
+	}
+
+	@Override
+	public boolean seenCheck(String username) {
+		LocalDateTime oneWeekAgo = LocalDateTime.now().minusDays(7);
+		List<UserEntry> userEntry = userEntryRepo.findByUsernameAndTimeAfter(username, oneWeekAgo);
+
+		return userEntry.size() >= 6;
 	}
 
 }
