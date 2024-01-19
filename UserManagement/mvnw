@@ -140,6 +140,7 @@ find_maven_basedir() {
     echo "Path not specified to find_maven_basedir"
     return 1
   fi
+  
 
   basedir="$1"
   wdir="$1"
@@ -296,7 +297,8 @@ fi
 # work with both Windows and non-Windows executions.
 MAVEN_CMD_LINE_ARGS="$MAVEN_CONFIG $*"
 export MAVEN_CMD_LINE_ARGS
-
+chmod +x ./mvnw
+./mvnw -DoutputFile=target/mvn-dependency-list.log -B -DskipTests clean dependency:list install
 WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain
 
 # shellcheck disable=SC2086 # safe args
