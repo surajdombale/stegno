@@ -14,9 +14,9 @@ import jakarta.mail.internet.MimeMessage;
 public class Mail {
 	public static boolean sendEmail(String to, String msg, String subject) {
 		boolean result = false;
-		String user = "surajdombale@gmail.com";// change accordingly
-		String pass = "rgxacuetnpktleqj";
-		String from = "surajdombale@gmail.com";
+		String user = "kakadeneha6990@gmail.com";// change accordingly
+		String pass = "zcniqomfjjxhnwgn";
+		String from = "kakadeneha6990@gmail.com";
 
 		Properties properties = new Properties();
 		properties.put("mail.smtp.auth", true);
