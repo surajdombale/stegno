@@ -19,6 +19,7 @@ import com.user.entitites.User;
 import com.user.model.TokenRequest;
 import com.user.model.TokenResponse;
 import com.user.services.UserService;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/auth")
@@ -72,6 +73,11 @@ public class UserAuth {
 	public User saveUser(@RequestBody User user) throws Exception {
 
 		return userService.saveUser(user);
+	}
+	@GetMapping("/status")
+	public String status() {
+
+		return "Running";
 	}
 
 }
