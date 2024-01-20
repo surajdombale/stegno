@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin
+@CrossOrigin(origins = { "*" })
 public class UserAuth {
 	@Autowired
 	private UserDetailsService userDetailsService;
