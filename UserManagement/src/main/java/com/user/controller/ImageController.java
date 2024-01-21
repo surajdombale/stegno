@@ -42,10 +42,11 @@ public class ImageController {
 
 	// http://localhost:8080/image/enableimage
 	@PostMapping("/enableimage")
-	public boolean enableImage(@RequestParam("username") Integer id) {
+	public boolean enableImage(@RequestParam("id") Integer id) {
 		return imgSrv.enableImage(id);
 
 	}
+	
 
 	// http://localhost:8080/image/sendmail
 	@PostMapping("/sendmail")

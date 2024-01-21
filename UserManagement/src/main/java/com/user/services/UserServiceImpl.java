@@ -54,10 +54,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Long> spamUser() {
 
-		return imgRepo.findByBanIsTrue().stream()
+		Map<String, Long> map = imgRepo.findByBanIsTrue().stream()
 				.collect(Collectors.groupingBy(ImageData::getUsername, Collectors.counting())).entrySet().stream()
-				.sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).collect(Collectors.toMap(
-						Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+				.filter(entry -> entry.getValue() >= 6).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+						(oldValue, newValue) -> oldValue, LinkedHashMap::new));
+		for (User user : userRepo.findByEnableIsFalse()) {
+			map.remove(user.getEmail());
+		}
+
+		return map;
 	};
 
 	@Override
