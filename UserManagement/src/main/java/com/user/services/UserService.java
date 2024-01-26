@@ -3,6 +3,7 @@ package com.user.services;
 import java.util.List;
 import java.util.Map;
 
+import com.user.entitites.ImageData;
 import com.user.entitites.User;
 
 public interface UserService {
@@ -20,5 +21,6 @@ public interface UserService {
 	public boolean deleteSpamImage(Integer id);
 
 	public boolean deleteUser(String username);
+	public List<ImageData> getAllImage();
 
 }

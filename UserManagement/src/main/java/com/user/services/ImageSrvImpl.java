@@ -90,4 +90,24 @@ public class ImageSrvImpl implements ImageSrv {
 		return userEntry.size() >= 6;
 	}
 
+	@Override
+	public List<ImageData> getAllImageByUser(String username) {
+
+		return imgRepo.findByUsername(username);
+	}
+
+	@Override
+	public boolean disableUser(String username) {
+		User user = userRepo.findByEmail(username).get();
+		user.setEnable(false);
+		return userRepo.save(user) != null;
+	}
+
+	@Override
+	public boolean enableUser(String username) {
+		User user = userRepo.findByEmail(username).get();
+		user.setEnable(true);
+		return userRepo.save(user) != null;
+	}
+
 }

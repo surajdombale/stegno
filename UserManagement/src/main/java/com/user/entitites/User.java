@@ -45,6 +45,7 @@ public class User implements UserDetails {
 	private String fullName;
 	private String pin;
 	private String role;
+	private boolean ban;
 
 	public void setPassword(String password) {
 		this.password = password;
@@ -90,6 +91,7 @@ public class User implements UserDetails {
 		} else {
 			authorities.add(new SimpleGrantedAuthority("USER"));
 		}
+		
 		return authorities;
 
 	}
@@ -112,7 +114,7 @@ public class User implements UserDetails {
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return true;
+		return ban;
 	}
 
 	@Override
@@ -127,6 +129,14 @@ public class User implements UserDetails {
 
 	public boolean isEnable() {
 		return enable;
+	}
+
+	public boolean isBan() {
+		return ban;
+	}
+
+	public void setBan(boolean ban) {
+		this.ban = ban;
 	}
 
 }

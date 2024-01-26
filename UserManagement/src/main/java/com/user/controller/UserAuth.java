@@ -48,6 +48,7 @@ public class UserAuth {
 		TokenResponse response = new TokenResponse();
 		response.setToken(token);
 		response.setUserName(userDetails.getUsername());
+		response.setRole(userDetails.getAuthorities().toArray()[0].toString());
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -71,7 +72,7 @@ public class UserAuth {
 	// http://localhost:8080/auth/save
 	@PostMapping("/save")
 	public User saveUser(@RequestBody User user) throws Exception {
-
+System.out.println("hi");
 		return userService.saveUser(user);
 	}
 	@GetMapping("/status")

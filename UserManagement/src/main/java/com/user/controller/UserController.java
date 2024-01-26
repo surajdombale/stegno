@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.user.entitites.ImageData;
 import com.user.entitites.User;
 import com.user.services.UserService;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = { "*" })
+@CrossOrigin("http://localhost:3000")
 public class UserController {
 
 	@Autowired
@@ -46,12 +48,12 @@ public class UserController {
 	// http://localhost:8080/user/allusers
 	@GetMapping("/allusers")
 	public List<User> getAllUserList() {
-
+		
 		return userService.getAllUser();
 	}
 
-	// http://localhost:8080/user/enable
-	@PostMapping("/enable")
+	// http://localhost:8080/user/banuser
+	@PostMapping("/banuser")
 	public String enableUser(@RequestParam("username") String username) {
 		return userService.enableUser(username);
 
@@ -82,6 +84,13 @@ public class UserController {
 	public boolean deleteImage(@RequestParam("id") Integer id) {
 		return userService.deleteSpamImage(id);
 
+	}
+
+	// http://localhost:8080/user/getallimagex
+	@GetMapping("/getallimage")
+	public List<ImageData> getAllImage() {
+
+		return userService.getAllImage();
 	}
 
 }

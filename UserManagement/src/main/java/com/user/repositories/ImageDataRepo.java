@@ -11,4 +11,6 @@ public interface ImageDataRepo extends JpaRepository<ImageData, Integer> {
 	List<ImageData> findByUsernameAndTimeAfter(String username, LocalDateTime date);
 
 	List<ImageData> findByBanIsTrue();
+
+	List<ImageData> findByUsername(String username);
 }

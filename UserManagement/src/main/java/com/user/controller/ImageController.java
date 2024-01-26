@@ -1,15 +1,18 @@
 package com.user.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+import com.user.entitites.ImageData;
 import com.user.entitites.User;
 import com.user.services.ImageSrv;
 import com.user.services.UserService;
@@ -17,7 +20,7 @@ import com.user.util.Mail;
 
 @RestController
 @RequestMapping("/image")
-@CrossOrigin
+@CrossOrigin("http://localhost:3000")
 public class ImageController {
 	@Autowired
 	private ImageSrv imgSrv;
@@ -46,7 +49,6 @@ public class ImageController {
 		return imgSrv.enableImage(id);
 
 	}
-	
 
 	// http://localhost:8080/image/sendmail
 	@PostMapping("/sendmail")
@@ -76,6 +78,27 @@ public class ImageController {
 		user.setRole("USER");
 
 		return userService.saveUser(user);
+	}
+
+	// http://localhost:8080/image/getall
+	@GetMapping("/getall")
+	public List<ImageData> getAllImageByUser(@RequestBody String username) {
+
+		return imgSrv.getAllImageByUser(username);
+	}
+
+	// http://localhost:8080/image/disable
+	@PostMapping("/disable")
+	public boolean disaableUser(@RequestParam("username") String username) {
+		return imgSrv.disableUser(username);
+
+	}
+
+	// http://localhost:8080/image/enable
+	@PostMapping("/enable")
+	public boolean enableUser(@RequestParam("username") String username) {
+		return imgSrv.enableUser(username);
+
 	}
 
 }

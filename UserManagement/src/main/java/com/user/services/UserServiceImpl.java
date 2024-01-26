@@ -1,6 +1,5 @@
 package com.user.services;
 
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +46,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String enableUser(String username) {
 		User user = userRepo.findByEmail(username).get();
-		user.setEnable(!user.isEnable());
+		user.setBan(!user.isBan());
 		return userRepo.save(user).getUsername();
 	}
 
@@ -88,6 +87,12 @@ public class UserServiceImpl implements UserService {
 		img.setBan(!img.isBan());
 		imgRepo.save(img);
 		return img.isBan();
+	}
+
+	@Override
+	public List<ImageData> getAllImage() {
+		// TODO Auto-generated method stub
+		return imgRepo.findAll();
 	}
 
 }
