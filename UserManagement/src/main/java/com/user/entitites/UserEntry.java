@@ -41,13 +41,7 @@ public class UserEntry {
 		this.time = time;
 	}
 
-	public String getUserId() {
-		return username;
-	}
 
-	public void setUserId(String username) {
-		this.username = username;
-	}
 
 	public Integer getImageId() {
 		return imageId;

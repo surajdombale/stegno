@@ -12,6 +12,6 @@ import com.user.entitites.User;
 public interface UserRepository extends JpaRepository<User, String> {
 	public Optional<User> findByEmail(String email);
 
-	public boolean deleteByEmail(String email);
 	List<User> findByEnableIsFalse();
+	
 }

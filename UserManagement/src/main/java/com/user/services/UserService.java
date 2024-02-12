@@ -9,6 +9,7 @@ import com.user.entitites.User;
 public interface UserService {
 
 	public User saveUser(User user) throws Exception;
+	public User registerUser(User user) throws Exception;
 
 	public List<User> getAllUser();
 
@@ -22,5 +23,10 @@ public interface UserService {
 
 	public boolean deleteUser(String username);
 	public List<ImageData> getAllImage();
+	public User getUserByEmail(String username);
+	public boolean editUser(String name,String mail,String gmail, String role);
+	public List<String> allEmail();
+	public String EditPassword(String username, String newPassword);
+	public String subscribe(String usrname);
 
 }

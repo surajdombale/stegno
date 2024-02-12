@@ -1,5 +1,4 @@
 package com.user.util;
-
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -7,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import org.springframework.web.multipart.MultipartFile;
-
 public class Stegno {
 	public static byte[] addText(MultipartFile imageFile, Integer id) throws IOException {
 		BufferedImage originalImage = ImageIO.read(new ByteArrayInputStream(imageFile.getBytes()));
@@ -27,14 +25,19 @@ public class Stegno {
 
 			pixelIndex++;
 		}
-
+System.out.println(id);
 		// Save the steganography image
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		ImageIO.write(originalImage, "png", byteArrayOutputStream);
 		ImageIO.write(originalImage, "png", new File("F:/Practice/just.jpg"));
-
+		
+//				ByteArrayMultipartFile	byteArrayMultipartFile=new ByteArrayMultipartFile("file", "example.jpg", byteArrayOutputStream.toByteArray());
 		return byteArrayOutputStream.toByteArray();
-
+				
+//				File destFile = new File("F:/Practice/example.png");
+//				byteArrayMultipartFile.transferTo(destFile);
+//				ImageIO.doWrite(byteArrayMultipartFile, "png",destFile);
+//return byteArrayMultipartFile;
 	}
 
 	public static Integer getText(MultipartFile imageFile) throws IOException {
@@ -57,6 +60,7 @@ public class Stegno {
 			return retrievedNumber;
 
 		} catch (IOException e) {
+			System.out.println("hereing");
 			e.printStackTrace();
 			return -1;
 		}

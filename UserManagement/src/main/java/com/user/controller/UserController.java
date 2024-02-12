@@ -39,48 +39,52 @@ public class UserController {
 	}
 
 	// http://localhost:8080/user/save
-	@PostMapping("/save")
-	public User saveUser(@RequestBody User user) throws Exception {
-
+	@GetMapping("/save")
+	public User saveUser(@RequestParam("username") String username, @RequestParam("role") String role,
+			@RequestParam("fullName") String fullName) throws Exception {
+		User user = new User();
+		user.setFullName(fullName);
+		user.setEmail(username);
+		user.setRole(role);
 		return userService.saveUser(user);
 	}
 
 	// http://localhost:8080/user/allusers
 	@GetMapping("/allusers")
 	public List<User> getAllUserList() {
-		
+
 		return userService.getAllUser();
 	}
 
 	// http://localhost:8080/user/banuser
-	@PostMapping("/banuser")
+	@GetMapping("/banuser")
 	public String enableUser(@RequestParam("username") String username) {
 		return userService.enableUser(username);
 
 	}
 
-	// http://localhost:8080/user/enableimage
-	@PostMapping("/banimage")
+	// http://localhost:8080/user/banimage
+	@GetMapping("/banimage")
 	public boolean banImage(@RequestParam("id") Integer id) {
 		return userService.banSpamImage(id);
 
 	}
 
 	// http://localhost:8080/user/delete
-	@PostMapping("/delete")
+	@GetMapping("/delete")
 	public boolean deleteUser(@RequestParam("username") String username) {
 		return userService.deleteUser(username);
 
 	}
 
 	// http://localhost:8080/user/spamuser
-	@PostMapping("/spamuser")
+	@GetMapping("/spamuser")
 	public Map<String, Long> spamUser() {
 		return userService.spamUser();
 	}
 
 	// http://localhost:8080/user/deleteimage
-	@PostMapping("/deleteimage")
+	@GetMapping("/deleteimage")
 	public boolean deleteImage(@RequestParam("id") Integer id) {
 		return userService.deleteSpamImage(id);
 
@@ -93,4 +97,20 @@ public class UserController {
 		return userService.getAllImage();
 	}
 
+	// http://localhost:8080/user/edituser
+	@GetMapping("/edituser")
+	public boolean editUser(@RequestParam("mail") String mail, @RequestParam("email") String email,
+			@RequestParam("role") String role, @RequestParam("name") String name) {
+
+		return userService.editUser(name, mail, email, role);
+	}
+
+	// http://localhost:8080/user/getuser
+	@GetMapping("/getuser")
+	public User getUser(@RequestParam("username") String username) {
+		User user = userService.getUserByEmail(username);
+		user.setPassword("");
+		user.setPin("");
+		return user;
+	}
 }

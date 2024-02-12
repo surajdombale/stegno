@@ -1,9 +1,12 @@
 package com.user.entitites;
 
+import java.time.LocalDate;
 import java.util.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -14,13 +17,6 @@ public class User implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
-	public boolean isSubs() {
-		return subs;
-	}
-
-	public void setSubs(boolean subs) {
-		this.subs = subs;
-	}
 
 	public String getFullName() {
 		return fullName;
@@ -40,12 +36,34 @@ public class User implements UserDetails {
 
 	@Id
 	private String userId;
+	@Column
 	private String password;
-	private boolean subs;
+	@Column
 	private String fullName;
+	@Column
 	private String pin;
+	@Column
 	private String role;
-	private boolean ban;
+	@Column
+	private LocalDate subDate;
+	@Column
+	private LocalDate joinDate;
+
+	public LocalDate getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(LocalDate joinDate) {
+		this.joinDate = joinDate;
+	}
+
+	public LocalDate getSubDate() {
+		return subDate;
+	}
+
+	public void setSubDate(LocalDate subDate) {
+		this.subDate = subDate;
+	}
 
 	public void setPassword(String password) {
 		this.password = password;
@@ -114,7 +132,7 @@ public class User implements UserDetails {
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return ban;
+		return true;
 	}
 
 	@Override
@@ -124,19 +142,15 @@ public class User implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return enable;
 	}
 
 	public boolean isEnable() {
 		return enable;
 	}
 
-	public boolean isBan() {
-		return ban;
-	}
 
-	public void setBan(boolean ban) {
-		this.ban = ban;
-	}
+
+
 
 }
