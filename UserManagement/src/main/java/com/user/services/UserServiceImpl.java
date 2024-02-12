@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService {
 		user.setSubDate(LocalDate.now().minusDays(29));
 		user.setJoinDate(LocalDate.now());
 		user.setEnable(true);
-		user.setRole("ADMIN");
+		user.setRole("USER");
 		User us=userRepo.save(user);
 		if(us!=null) {
 			
