@@ -18,7 +18,7 @@ import com.user.services.UserService;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("https://imageencryptorpro.up.railway.app")
 public class UserController {
 
 	@Autowired
