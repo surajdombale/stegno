@@ -66,7 +66,6 @@ public class ImageController {
 
 	}
 
-
 	// http://localhost:8080/image/addcheck
 	@GetMapping("/addcheck")
 	public boolean addCheck(@RequestParam("username") String username) {
@@ -123,23 +122,21 @@ public class ImageController {
 	}
 
 	// http://localhost:8080/image/delete
-		@GetMapping("/delete")
-		public boolean deleteImage(@RequestParam("id") Integer id,@RequestParam("username") String username) {
-			
-			return imgSrv.deleteImage(id,username);
+	@GetMapping("/delete")
+	public boolean deleteImage(@RequestParam("id") Integer id, @RequestParam("username") String username) {
 
-		}
-	
-		// http://localhost:8080/image/sub
-				@GetMapping("/sub")
-				public String subscribe(@RequestParam("username") String username) {
-					
-					return userService.subscribe(username);
+		return imgSrv.deleteImage(id, username);
 
-				}
-	
-	
-	
+	}
+
+	// http://localhost:8080/image/sub
+	@GetMapping("/sub")
+	public String subscribe(@RequestParam("username") String username) {
+
+		return userService.subscribe(username);
+
+	}
+
 	private void doAuthenticate(String email, String password) {
 
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, password);

@@ -132,7 +132,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<ImageData> getAllImage() {
 		// TODO Auto-generated method stub
-		return imgRepo.findAll();
+		List<ImageData> img=new ArrayList<>();
+		for(ImageData imge:imgRepo.findAll()) {
+			imge.setImage(null);
+      		img.add(imge);
+		}
+
+		return img;
 	}
 
 	@Override

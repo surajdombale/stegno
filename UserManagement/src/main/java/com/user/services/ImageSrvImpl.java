@@ -1,6 +1,7 @@
 package com.user.services;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,8 +93,13 @@ public class ImageSrvImpl implements ImageSrv {
 
 	@Override
 	public List<ImageData> getAllImageByUser(String username) {
+		List<ImageData> img=new ArrayList<>();
+		for(ImageData imge:imgRepo.findByUsername(username)) {
+			imge.setImage(null);
+      		img.add(imge);
+		}
 
-		return imgRepo.findByUsername(username);
+		return img;
 	}
 
 	@Override
