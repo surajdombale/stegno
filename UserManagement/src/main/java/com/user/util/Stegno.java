@@ -29,7 +29,7 @@ System.out.println(id);
 		// Save the steganography image
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		ImageIO.write(originalImage, "png", byteArrayOutputStream);
-		ImageIO.write(originalImage, "png", new File("F:/Practice/just.jpg"));
+//		ImageIO.write(originalImage, "png", new File("F:/Practice/just.jpg"));
 		
 //				ByteArrayMultipartFile	byteArrayMultipartFile=new ByteArrayMultipartFile("file", "example.jpg", byteArrayOutputStream.toByteArray());
 		return byteArrayOutputStream.toByteArray();
