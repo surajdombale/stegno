@@ -34,7 +34,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = { "https://imageencryptorpro.up.railway.app" })
+@CrossOrigin("http://localhost:3000")
+//@CrossOrigin(origins = { "https://imageencryptorpro.up.railway.app" })
 public class UserAuth {
 	@Autowired
 	private UserDetailsService userDetailsService;

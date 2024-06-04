@@ -18,7 +18,8 @@ import com.user.services.UserService;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin("https://imageencryptorpro.up.railway.app")
+@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("https://imageencryptorpro.up.railway.app")
 public class UserController {
 
 	@Autowired
@@ -46,6 +47,7 @@ public class UserController {
 		user.setFullName(fullName);
 		user.setEmail(username);
 		user.setRole(role);
+		System.out.println(user);
 		return userService.saveUser(user);
 	}
 

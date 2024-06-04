@@ -32,7 +32,8 @@ import com.user.util.Mail;
 
 @RestController
 @RequestMapping("/image")
-@CrossOrigin(origins = "https://imageencryptorpro.up.railway.app", methods = { RequestMethod.POST, RequestMethod.GET })
+@CrossOrigin(origins = "http://localhost:3000", methods = { RequestMethod.POST, RequestMethod.GET })
+//@CrossOrigin(origins = "https://imageencryptorpro.up.railway.app", methods = { RequestMethod.POST, RequestMethod.GET })
 public class ImageController {
 	@Autowired
 	private ImageSrv imgSrv;
